@@ -29,15 +29,11 @@ public class SelectorTest2 extends BaseTest{
         for (WebElement sbutton : selectorOne){
             if (sbutton.getText().equals("Mr.")){
                 sbutton.click();
+                break;
             }
-            break;
         }
-//        String elspis = selectorOne.get().getText();
 
         Thread.sleep(5000);
-
-//        Assertions.assertEquals("Mr.",selectorOne.get().getText());
-//        Assertions.assertEquals("Mr.",elspis);
 
     }
 }

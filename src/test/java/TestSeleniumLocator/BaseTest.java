@@ -12,7 +12,8 @@ public class BaseTest {
 
     @BeforeAll
     static void setupAll() {
-        WebDriverManager.chromedriver().setup();
+
+        WebDriverManager.chromedriver().browserVersion("126").setup();
         driver = new ChromeDriver();
     }
 
