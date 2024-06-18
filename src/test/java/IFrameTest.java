@@ -15,10 +15,12 @@ public class IFrameTest extends BaseTest {
         WebElement textArea = driver.findElement(By.id("tinymce"));
 
         System.out.println(textArea.getText());
+        driver.switchTo().parentFrame();
 
         WebElement iFrameElement =driver.findElement(By.tagName("iframe"));
         driver.switchTo().frame(iFrameElement);
 
+        driver.quit();
 
     }
 
