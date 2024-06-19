@@ -45,6 +45,7 @@ public class WebElementExtraTest extends BaseTest {
         }
         if(elementsMenu.size()<5) Assertions.assertEquals(4,elementsMenu.size(),"должно быть 4 элемента");
         System.out.println("elementsMenu.size() = " + elementsMenu.size());
+        driver.quit();
     }
 
     @Test
@@ -76,6 +77,7 @@ public class WebElementExtraTest extends BaseTest {
         Assertions.assertTrue(documentsButtonAssert.isEnabled(),"Элемент должен быть активен");
         Assertions.assertTrue(officeButtonAssert.isSelected(),"Элемент должен быть выбран");
         Assertions.assertTrue(officeButtonAssert.isEnabled(),"Элемент должен быть выбран");
+        driver.quit();
     }
 
 
@@ -105,23 +107,21 @@ public class WebElementExtraTest extends BaseTest {
 
         sortProducts.selectByVisibleText("Price (low to high)");
 
-//        String aSort = sortProducts.getFirstSelectedOption().getText();
-//        Assertions.assertEquals("Price (low to high)", aSort);
+        WebElement aSort = driver.findElement(By.className("active_option"));
+        Assertions.assertEquals("Price (low to high)", aSort.getText());
+
 
         // Добавьте в корзину самый дешевый и второй самый дорогой товар, передите в корзину продолжите с заказом
-//        List<WebElement> listPriceProduckts = driver.findElements(By.className("pricebar"));
-//        Actions a= new Actions(driver);
-
-        WebElement sauseLabsOnesi = driver.findElement(By.id("add-to-cart-sauce-labs-onesie"));
-        sauseLabsOnesi.click();
-        WebElement sauseLabsBackpack = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
-        sauseLabsBackpack.click();
+        List<WebElement> listPriceProduckts = driver.findElements(By.cssSelector("button[id^=add-to-cart]"));
+        listPriceProduckts.get(0).click();
+        listPriceProduckts.get(listPriceProduckts.size()-2).click();
 
         WebElement goToCart = driver.findElement(By.className("shopping_cart_link"));
         goToCart.click();
 
-        assertEquals("Sauce Labs Onesie", driver.findElements(By.className("inventory_item_name")).get(0).getText());
-        assertEquals("Sauce Labs Backpack", driver.findElements(By.className("inventory_item_name")).get(1).getText());
+        Assertions.assertEquals("Sauce Labs Onesie", driver.findElements(By.className("inventory_item_name")).get(0).getText());
+        Assertions.assertEquals("Sauce Labs Backpack", driver.findElements(By.className("inventory_item_name")).get(1).getText());
+        Thread.sleep(3000);
 
         driver.findElement(By.id("checkout")).click();
 
@@ -161,5 +161,6 @@ public class WebElementExtraTest extends BaseTest {
         Assertions.assertEquals("https://www.saucedemo.com/inventory.html", urlHomePage);
 
         Thread.sleep(2000);
+        driver.quit();
     }
 }
