@@ -11,7 +11,7 @@ public class SelectTests extends BaseTest {
 
 
         @Test
-        public void SelectTest() {
+        public void SelectTest() throws InterruptedException {
             driver.get("https://demoqa.com/select-menu");
 
             WebElement colorDrpDwn = driver.findElement(By.cssSelector("#oldSelectMenu"));
@@ -22,18 +22,22 @@ public class SelectTests extends BaseTest {
 
             String activeColor = selectColor.getFirstSelectedOption().getText();
             Assertions.assertEquals("Red", activeColor);
+            Thread.sleep(2000);
 
             selectColor.selectByVisibleText("Yellow");
             activeColor = selectColor.getFirstSelectedOption().getText();
 
             Assertions.assertEquals("Yellow",activeColor);
+            Thread.sleep(2000);
 
             selectColor.selectByIndex(6);
             activeColor = selectColor.getFirstSelectedOption().getText();
             Assertions.assertEquals("White",activeColor);
+            Thread.sleep(2000);
 
             selectColor.selectByValue("7");
             activeColor = selectColor.getFirstSelectedOption().getText();
             Assertions.assertEquals("Voilet",activeColor);
+            Thread.sleep(2000);
         }
 }

@@ -8,8 +8,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WebElementExtraTest extends BaseTest {
     @Test
@@ -40,8 +45,6 @@ public class WebElementExtraTest extends BaseTest {
         }
         if(elementsMenu.size()<5) Assertions.assertEquals(4,elementsMenu.size(),"должно быть 4 элемента");
         System.out.println("elementsMenu.size() = " + elementsMenu.size());
-        driver.quit();
-
     }
 
     @Test
@@ -57,7 +60,6 @@ public class WebElementExtraTest extends BaseTest {
         WebElement branchHome = driver.findElement(By.cssSelector(".rct-icon-expand-close"));
         branchHome.click();
 
-        Thread.sleep(5000);
         List<WebElement> branchcheckBoxHome = driver.findElements(By.cssSelector("button[aria-label=Toggle]"));
 
         branchcheckBoxHome.get(2).click();
@@ -74,20 +76,90 @@ public class WebElementExtraTest extends BaseTest {
         Assertions.assertTrue(documentsButtonAssert.isEnabled(),"Элемент должен быть активен");
         Assertions.assertTrue(officeButtonAssert.isSelected(),"Элемент должен быть выбран");
         Assertions.assertTrue(officeButtonAssert.isEnabled(),"Элемент должен быть выбран");
-
-//        WebElement branchDocuments = driver.findElement(By.cssSelector())
-
-        driver.quit();
     }
 
 
     @Test
-    public void testSumAndOrderMessageE2E() { // 5
+    public void testSumAndOrderMessageE2E() throws InterruptedException { // 5
         driver.get("https://www.saucedemo.com/");
+        driver.manage().window().maximize();
         // Войдите в систему как standard_user, отсортируйте товары по цене от маленькой до большой
         // Добавьте в корзину самый дешевый и второй самый дорогой товар, передите в корзину продолжите с заказом
         // Введите данные -> далее; проверьте что общая сумма 41.02 -> Завершите заказ; проверьте что сообщения:
         // "Thank you for your order!" и "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
         // Нажмите "Back Home" и каким хотите способом убедитесь, что вы на главной странице
+
+        //Войдите в систему как standard_user, отсортируйте товары по цене от маленькой до большой
+        WebElement userNameInput = driver.findElement(By.cssSelector("input#user-name"));
+        userNameInput.sendKeys("standard_user");
+
+        WebElement passwordInput = driver.findElement(By.cssSelector("input#password"));
+        passwordInput.sendKeys("secret_sauce");
+
+        WebElement loginButton = driver.findElement(By.cssSelector("input#login-button"));
+        loginButton.click();
+
+        WebElement productsDrDw = driver.findElement(By.className("product_sort_container"));
+        Select sortProducts = new Select(productsDrDw);
+        List<WebElement> sortListOptions = sortProducts.getOptions();
+        for(WebElement sor:sortListOptions){
+            System.out.println("sor.getText() = " + sor.getText());
+        }
+
+        sortProducts.selectByVisibleText("Price (low to high)");
+
+//        String aSort = sortProducts.getFirstSelectedOption().getText();
+//        Assertions.assertEquals("Price (low to high)", aSort);
+
+        // Добавьте в корзину самый дешевый и второй самый дорогой товар, передите в корзину продолжите с заказом
+//        List<WebElement> listPriceProduckts = driver.findElements(By.className("pricebar"));
+//        Actions a= new Actions(driver);
+
+        WebElement sauseLabsOnesi = driver.findElement(By.id("add-to-cart-sauce-labs-onesie"));
+        sauseLabsOnesi.click();
+        WebElement sauseLabsBackpack = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
+        sauseLabsBackpack.click();
+
+        WebElement goToCart = driver.findElement(By.className("shopping_cart_link"));
+        goToCart.click();
+
+        assertEquals("Sauce Labs Onesie", driver.findElements(By.className("inventory_item_name")).get(0).getText());
+        assertEquals("Sauce Labs Backpack", driver.findElements(By.className("inventory_item_name")).get(1).getText());
+
+        driver.findElement(By.id("checkout")).click();
+
+        // Введите данные -> далее; проверьте что общая сумма 41.02 -> Завершите заказ; проверьте что сообщения:
+        // "Thank you for your order!" и "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+        WebElement firstName =driver.findElement(By.id("first-name"));
+        firstName.sendKeys("Wolf");
+
+        WebElement lastName =driver.findElement(By.id("last-name"));
+        lastName.sendKeys("Grau");
+
+        WebElement postCode =driver.findElement(By.id("postal-code"));
+        postCode.sendKeys("112233");
+
+        WebElement continueButton =driver.findElement(By.id("continue"));
+        continueButton.click();
+
+        WebElement priceTotal =driver.findElement(By.className("summary_total_label"));
+        Assertions.assertEquals("Total: $41.02", priceTotal.getText());
+
+        WebElement finishButton =driver.findElement(By.id("finish"));
+        finishButton.click();
+
+        WebElement thankYouText =driver.findElement(By.className("complete-header"));
+        Assertions.assertTrue(thankYouText.isDisplayed());
+        WebElement completeText =driver.findElement(By.className("complete-text"));
+        Assertions.assertTrue(completeText.isDisplayed());
+
+        // Нажмите "Back Home" и каким хотите способом убедитесь, что вы на главной странице
+        WebElement backHomeButton = driver.findElement(By.id("back-to-products"));
+        backHomeButton.click();
+
+        WebElement homePage = driver.findElement(By.className("title"));
+        Assertions.assertTrue(homePage.isDisplayed());
+
+        Thread.sleep(2000);
     }
 }
