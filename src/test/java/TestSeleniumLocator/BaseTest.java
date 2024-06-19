@@ -13,13 +13,13 @@ public class BaseTest {
     @BeforeAll
     static void setupAll() {
 
-//        WebDriverManager.chromedriver().browserVersion("126").setup();
+//        WebDriverManager.chromedriver().browserVersion("125").setup();
 //        driver = new ChromeDriver();
     }
 
     @BeforeEach
     void setup() {
-        WebDriverManager.chromedriver().browserVersion("126").setup();
+        WebDriverManager.chromedriver().browserVersion("125").setup();
         driver = new ChromeDriver();
     }
 

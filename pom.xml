@@ -31,15 +31,15 @@
     <dependency>
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
-      <version>5.5.3</version>
-      <scope>test</scope>
+      <version>5.8.0</version>
     </dependency>
     <!-- Убираем безобразие с красными warning'ами -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.4.11</version>
+      <version>1.5.6</version>
     </dependency>
+
   </dependencies>
 
   <build>
