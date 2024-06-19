@@ -102,9 +102,6 @@ public class WebElementExtraTest extends BaseTest {
         WebElement productsDrDw = driver.findElement(By.className("product_sort_container"));
         Select sortProducts = new Select(productsDrDw);
         List<WebElement> sortListOptions = sortProducts.getOptions();
-        for(WebElement sor:sortListOptions){
-            System.out.println("sor.getText() = " + sor.getText());
-        }
 
         sortProducts.selectByVisibleText("Price (low to high)");
 
@@ -159,6 +156,9 @@ public class WebElementExtraTest extends BaseTest {
 
         WebElement homePage = driver.findElement(By.className("title"));
         Assertions.assertTrue(homePage.isDisplayed());
+
+        String urlHomePage = driver.getCurrentUrl();
+        Assertions.assertEquals("https://www.saucedemo.com/inventory.html", urlHomePage);
 
         Thread.sleep(2000);
     }
