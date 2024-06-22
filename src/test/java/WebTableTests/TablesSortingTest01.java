@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TablesSortingTest01 extends BaseTest {
     @Test
-    public void tablesSortingTest01() throws InterruptedException {
+    public void tablesSortingTest01() {
         driver.get("https://demowf.aspnetawesome.com/#Grid-search-using-parent-binding");
         driver.findElement(By.id("ContentPlaceHolder1_OCountry-awed")).click();
         driver.findElement(By.xpath("//li[.='Westfall']")).click();
         WebElement country = driver.findElement(By.cssSelector("#ContentPlaceHolder1_OCountry-awed > div.o-cptn"));
         Assertions.assertTrue(country.isDisplayed());
-        Thread.sleep(2000);
+        driver.manage().timeouts().setScriptTimeout(3,TimeUnit.SECONDS);
 
         // Напишите метод, который будет принимать на вход WebElement таблицу, String имя столбца и String значение
         // A возвращать первую соответствующую строку как WebElement
