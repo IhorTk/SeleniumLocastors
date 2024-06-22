@@ -36,6 +36,7 @@ public class DemoWebtableTest extends BaseTest {
         String rankBuilding = "2";
         System.out.println("Информация о здании  " + rankBuilding + "  по высоте :");
         System.out.println(getInformBuilding(rankBuilding).getText());
+        Assertions.assertEquals("Clock Tower Hotel Saudi Arabia Mecca 601m 2012 2",getInformBuilding(rankBuilding).getText());
     }
     private int getCountBuilding( ){
         WebElement table = driver.findElement(By.cssSelector("table.tsc_table_s13"));

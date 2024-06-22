@@ -22,14 +22,9 @@ public class WaitTest extends BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://www.selenium.dev/selenium/web/dynamic.html");
         driver.findElement(By.id("adder")).click();
-//        WebElement box = driver.findElement(By.id("box0"));
-        assertTrue(driver.findElement(By.id("box0")).isDisplayed());// или так
         driver.findElement(By.id("adder")).click();
-//        WebElement box1 = driver.findElement(By.id("box1"));
-        assertTrue(driver.findElement(By.id("box1")).isDisplayed());// или так
         driver.findElement(By.id("adder")).click();
-//        WebElement box2 = driver.findElement(By.id("box2"));
-        assertTrue(driver.findElement(By.id("box2")).isDisplayed());// или так
+        assertTrue(driver.findElement(By.id("box2")).isDisplayed());
 
         List<WebElement> countBox = driver.findElements(By.cssSelector(".redbox"));
         assertEquals(3,countBox.size());
