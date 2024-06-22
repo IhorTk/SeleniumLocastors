@@ -21,7 +21,7 @@ public class TablesSortingTest01 extends BaseTest {
         driver.findElement(By.xpath("//li[.='Westfall']")).click();
         WebElement country = driver.findElement(By.cssSelector("#ContentPlaceHolder1_OCountry-awed > div.o-cptn"));
         Assertions.assertTrue(country.isDisplayed());
-        driver.manage().timeouts().setScriptTimeout(3,TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(2,TimeUnit.SECONDS);
 
         // Напишите метод, который будет принимать на вход WebElement таблицу, String имя столбца и String значение
         // A возвращать первую соответствующую строку как WebElement
