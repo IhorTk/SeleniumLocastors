@@ -36,19 +36,25 @@ public class WebTabelTestClassWork extends BaseTest {
         int rowIndex = 0; //индекс строки
         int colIndex = 0; //индекс Столбца
         WebElement table = driver.findElement(By.xpath("//*[@id=\"table1\"]"));
-        //ищем индекс Столбца
-        List<WebElement> tabHeader = table.findElements(By.xpath("//*[@id=\"table1\"]/thead/tr/th"));
-        for (WebElement head:tabHeader) {
-            if(head.getText().equals("Due")) break;
-            colIndex++;
-        }
 
         //ищем индекс строки
         List<WebElement> tabRows = table.findElements(By.xpath("//*[@id=\"table1\"]/tbody/tr"));
         for (WebElement row:tabRows) {
-            if(row.getText().contains(name)) break;
+            if(row.getText().contains(name)){
+                break;
+            }
             rowIndex++;
         }
+
+        //ищем индекс Столбца
+        List<WebElement> tabHeader = table.findElements(By.xpath("//*[@id=\"table1\"]/thead/tr/th"));
+        for (WebElement head:tabHeader) {
+            if(head.getText().equals("Due")){
+                break;
+            }
+            colIndex++;
+        }
+
         // получаем результат
         WebElement due = tabRows.get(rowIndex).findElements(By.xpath(".//td")).get(colIndex);
         String result = due.getText();
@@ -71,7 +77,9 @@ public class WebTabelTestClassWork extends BaseTest {
         int rowIndex = 0; //индекс строки
         List<WebElement> tabRows = driver.findElements(By.xpath("//*[@id=\"table1\"]/tbody/tr"));
         for (WebElement row:tabRows) {
-            if(row.getText().contains(name)) break;
+            if(row.getText().contains(name)){
+                break;
+            }
             rowIndex++;
         }
         return rowIndex;
@@ -98,6 +106,7 @@ public class WebTabelTestClassWork extends BaseTest {
         assertEquals("Hot Beverage", neededRowCells.get(2).getText());
         assertEquals("45", neededRowCells.get(3).getText());
     }
+
     private WebElement getRowValue(String name){
         WebElement rowValue = null;
         List<WebElement> tableRows = driver.findElements(By.xpath("//*[@id=\"GridFrow2\"]/div[3]/div[2]/div/table" +
@@ -110,10 +119,9 @@ public class WebTabelTestClassWork extends BaseTest {
         }
         return rowValue;
     }
+
     private List<WebElement> getValueCell(WebElement element){
        List<WebElement> valueCell = element.findElements(By.xpath(".//td"));
        return  valueCell;
     }
-
-
 }
