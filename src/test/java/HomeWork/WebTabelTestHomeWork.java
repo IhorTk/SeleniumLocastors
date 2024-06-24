@@ -1,4 +1,4 @@
-package WebTableTests;
+package HomeWork;
 
 import TestSeleniumLocator.BaseTest;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class WebTabelTestClassWork extends BaseTest {
+public class WebTabelTestHomeWork extends BaseTest {
     @Test
     public void getHeadersTest() { // - 1
         driver.get("https://the-internet.herokuapp.com/tables");
@@ -33,31 +33,8 @@ public class WebTabelTestClassWork extends BaseTest {
 
     }
     private String getDueByFirstName(String name) {
-        int rowIndex = 0; //индекс строки
-        int colIndex = 0; //индекс Столбца
-        WebElement table = driver.findElement(By.xpath("//*[@id=\"table1\"]"));
-
-        //ищем индекс строки
-        List<WebElement> tabRows = table.findElements(By.xpath("//*[@id=\"table1\"]/tbody/tr"));
-        for (WebElement row:tabRows) {
-            if(row.getText().contains(name)){
-                break;
-            }
-            rowIndex++;
-        }
-
-        //ищем индекс Столбца
-        List<WebElement> tabHeader = table.findElements(By.xpath("//*[@id=\"table1\"]/thead/tr/th"));
-        for (WebElement head:tabHeader) {
-            if(head.getText().equals("Due")){
-                break;
-            }
-            colIndex++;
-        }
-
-        // получаем результат
-        WebElement due = tabRows.get(rowIndex).findElements(By.xpath(".//td")).get(colIndex);
-        String result = due.getText();
+        String nameValue= String.format("//*[@id='table1']//td[contains (text(),'%s')]/../td[4]", name);
+        String result = driver.findElement(By.xpath(nameValue)).getText();
 
         return result;
     }
@@ -65,7 +42,7 @@ public class WebTabelTestClassWork extends BaseTest {
 
 
 
-        @Test
+    @Test
     public void getRowIndexByLastName() { // - 3
         driver.get("https://the-internet.herokuapp.com/tables");
         // Написать метод, чтобы получить индекс строки по значению Last Name
@@ -122,7 +99,7 @@ public class WebTabelTestClassWork extends BaseTest {
     }
 
     private List<WebElement> getValueCell(WebElement element){
-       List<WebElement> valueCell = element.findElements(By.xpath(".//td"));
-       return  valueCell;
+        List<WebElement> valueCell = element.findElements(By.xpath(".//td"));
+        return  valueCell;
     }
 }
