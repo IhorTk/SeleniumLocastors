@@ -1,5 +1,6 @@
+package FrameTest;
+
 import TestSeleniumLocator.BaseTest;
-import com.google.j2objc.annotations.Weak;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

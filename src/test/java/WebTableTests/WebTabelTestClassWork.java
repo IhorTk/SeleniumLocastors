@@ -4,6 +4,7 @@ import TestSeleniumLocator.BaseTest;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.Duration;
 import java.util.List;
@@ -93,6 +94,7 @@ public class WebTabelTestClassWork extends BaseTest {
         driver.manage().window().maximize();
         driver.findElement(By.id("GridFrow2PageSize-awed")).click();
         driver.findElement(By.xpath("//li[.='100']")).click();
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("*//tr"),99));
         // Найти первую строку со значением Ghidrimesti в столбце country
         WebElement neededRow = getRowValue("Ghidrimesti");
         // Показать что мы нашли верную строку
@@ -110,8 +112,7 @@ public class WebTabelTestClassWork extends BaseTest {
 
     private WebElement getRowValue(String name){
         WebElement rowValue = null;
-        List<WebElement> tableRows = driver.findElements(By.xpath("//*[@id=\"GridFrow2\"]/div[3]/div[2]/div/table" +
-                "/tbody/tr"));
+        List<WebElement> tableRows = driver.findElements(By.xpath("//*[@id=\"GridFrow2\"]//tr"));
         for(WebElement row:tableRows){
             if(row.getText().contains(name)){
                 rowValue = row;

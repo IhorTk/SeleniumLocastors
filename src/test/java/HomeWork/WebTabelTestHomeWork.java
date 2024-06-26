@@ -33,10 +33,9 @@ public class WebTabelTestHomeWork extends BaseTest {
 
     }
     private String getDueByFirstName(String name) {
-        String nameValue= String.format("//*[@id='table1']//td[contains (text(),'%s')]/../td[4]", name);
-        String result = driver.findElement(By.xpath(nameValue)).getText();
 
-        return result;
+        return driver.findElement(By.xpath(String.format("//*[@id='table1']//td[contains (text(),'%s')]/../td[4]",name))).getText();
+
     }
 
 
