@@ -1,6 +1,7 @@
 package TestSeleniumLocator;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 
@@ -37,7 +39,7 @@ public class BaseTest {
         options.addArguments("--ignore-certificate-errors");
         // Создаём новый объект класса ChromeDriver
         driver = new ChromeDriver(options);
-        //driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         actions = new Actions(driver);
         js = (JavascriptExecutor) driver;

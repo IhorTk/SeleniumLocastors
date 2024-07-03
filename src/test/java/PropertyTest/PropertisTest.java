@@ -18,11 +18,7 @@ public class PropertisTest extends BaseTest {
 
         Properties properties = new Properties();
         properties.load(inputStream);
-
         inputStream.close();
-
-
-        //"D:\\GIT\\SeleniumLocastors\\src\\main\\resources\\Prfoperty\configuration.properties"
     }
 
 }
