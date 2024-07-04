@@ -24,13 +24,25 @@ public class ProbaTestRew1 extends BaseTest {
     }
     @Test
     //поиск елементов
-    public void poiskElem() throws InterruptedException {
+    public void poiskElem() {
         driver.get("https://www.demoblaze.com/");
         List<WebElement>  amountArticle = driver.findElements(By.cssSelector("a.hrefch"));
         Assertions.assertEquals(9,amountArticle.size());
         driver.findElement(By.cssSelector("#itemc[onclick=\"byCat('phone')\"]")).click();
-        Thread.sleep(3000);
+        wait.until(ExpectedConditions.stalenessOf(amountArticle.get(0)));
         List<WebElement>  amountArticlePhone = driver.findElements(By.cssSelector("a.hrefch"));
         Assertions.assertEquals(7,amountArticlePhone.size());
+        driver.findElement(By.cssSelector("#itemc[onclick=\"byCat('notebook')\"]")).click();
+        wait.until(ExpectedConditions.stalenessOf(amountArticlePhone.get(0)));
+        List<WebElement>  amountArticleNotebook = driver.findElements(By.cssSelector("a.hrefch"));
+        Assertions.assertEquals(6,amountArticleNotebook.size());
+        driver.findElement(By.cssSelector("#itemc[onclick=\"byCat('monitor')\"]")).click();
+        wait.until(ExpectedConditions.stalenessOf(amountArticleNotebook.get(0)));
+        List<WebElement>  amountArticleMonitor = driver.findElements(By.cssSelector("a.hrefch"));
+        Assertions.assertEquals(2,amountArticleMonitor.size());
+
+
     }
+//    @Test
+//    //проверка количества элементов
 }
