@@ -28,7 +28,57 @@ public class ProbaTestRew1 extends BaseTest {
         driver.findElement(By.cssSelector("button.btn-primary[onclick='logIn()']")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#nameofuser")));
         assertTrue(driver.findElement(By.cssSelector("#nameofuser")).isDisplayed());
+        assertEquals("Welcome "+"GrauWolf",driver.findElement(By.cssSelector("#nameofuser")).getText());
+        driver.findElement(By.cssSelector("#logout2")).click();
+        assertTrue(driver.findElement(By.cssSelector("#signin2")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#login2")).isDisplayed());
+
+
+
     }
+    @Test
+    public void createNewUser(){
+        driver.get("https://www.demoblaze.com/");
+        driver.findElement(By.cssSelector("#signin2")).click();
+        driver.findElement(By.cssSelector("#sign-username")).sendKeys("Bobobo");
+        driver.findElement(By.cssSelector("#sign-password")).sendKeys("Halava");
+        driver.findElement(By.cssSelector("button.btn-primary[onclick='register()']")).click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        alert = driver.switchTo().alert();
+        if(alert.getText().equals("Sign up successful.")){
+            alert.accept();
+        }
+        if(alert.getText().equals("This user already exist.")){
+            alert.accept();
+            driver.findElement(By.xpath("//*[@id=\"signInModal\"]//button[text()='Close']")).click();
+        }
+
+        driver.findElement(By.cssSelector("#login2")).click();
+        driver.findElement(By.cssSelector("#loginusername")).sendKeys("Bobobo");
+        driver.findElement(By.cssSelector("#loginpassword")).sendKeys("Halava");
+        driver.findElement(By.cssSelector("button.btn-primary[onclick='logIn()']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#nameofuser")));
+        assertTrue(driver.findElement(By.cssSelector("#nameofuser")).isDisplayed());
+        assertEquals("Welcome "+"Bobobo",driver.findElement(By.cssSelector("#nameofuser")).getText());
+
+    }
+
+    @Test
+    //Обращение в службы сайта
+    public void messageSupport() {
+        driver.get("https://www.demoblaze.com/");
+        driver.findElement(By.cssSelector("a.nav-link[data-target=\"#exampleModal\"]")).click();
+        driver.findElement(By.cssSelector("#recipient-email")).sendKeys("grayWolf@forest.com");
+        driver.findElement(By.cssSelector("#recipient-name")).sendKeys("Gray Wolf");
+        driver.findElement(By.cssSelector("#message-text")).sendKeys("Ежики - самые прекрассные существа, а тигры лишь большие кошки");
+        driver.findElement(By.cssSelector("button.btn-primary[onclick=\"send()\"]")).click();
+        wait.until(ExpectedConditions.alertIsPresent());
+        alert = driver.switchTo().alert();
+        assertEquals("Thanks for the message!!", alert.getText());
+        alert.accept();
+        ////*[@id="exampleModal"]//button[text()='Close'] - кнопка закрыть
+    }
+
     @Test
     //поиск елементов
     public void sortArticle() {
@@ -157,7 +207,7 @@ public class ProbaTestRew1 extends BaseTest {
         driver.findElement(By.cssSelector("button.btn-primary[onclick='purchaseOrder()']")).click();
 
 
-//
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.sweet-alert.showSweetAlert" +
                 ".visible")));
         WebElement itogPurschase = driver.findElement(By.cssSelector(".sweet-alert.showSweetAlert"));
@@ -172,5 +222,6 @@ public class ProbaTestRew1 extends BaseTest {
         assertEquals(9,amountArticle2.size());
 
     }
+
 
 }
